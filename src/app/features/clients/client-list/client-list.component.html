@@ -1,7 +1,19 @@
 <mat-card>
   <mat-card-title>Clientes</mat-card-title>
   <mat-card-content>
-    <table mat-table [dataSource]="clients" class="mat-elevation-z8" multiTemplateDataRows>
+    <div class="filters">
+      <mat-form-field appearance="fill">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="selectedStatus" (selectionChange)="applyFilter()">
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="PENDING">Em Atraso</mat-option>
+          <mat-option value="PAID">Pago</mat-option>
+          <mat-option value="CANCELLED">Cancelado</mat-option>
+          <mat-option value="LATE">Dentro do Prazo</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <table mat-table [dataSource]="filteredClients" class="mat-elevation-z8" multiTemplateDataRows>
       
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> ID </th>

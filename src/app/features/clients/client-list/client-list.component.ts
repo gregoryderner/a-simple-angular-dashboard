@@ -42,6 +42,8 @@ export class ClientListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'cpfCnpj', 'phone', 'status', 'actions'];
   contractColumns: string[] = ['contractNumber', 'contractDate', 'value', 'status'];
   expandedElement: Client | null = null;
+  filteredClients: Client[] = [];
+  selectedStatus: string = '';
 
   constructor(
     private clientService: ClientService,
@@ -55,9 +57,22 @@ export class ClientListComponent implements OnInit {
 
   loadClients(): void {
     this.clientService.getClients().subscribe(
-      data => this.clients = data,
+      data => {
+        this.clients = data;
+        this.filteredClients = data;
+      },
       error => this.notificationService.showError('Failed to load clients')
     );
+  }
+
+  applyFilter(): void {
+    if (this.selectedStatus) {
+      this.filteredClients = this.clients.filter(client => 
+        client.contracts.some(contract => contract.status === this.selectedStatus)
+      );
+    } else {
+      this.filteredClients = this.clients;
+    }
   }
 
   addClient(): void {
