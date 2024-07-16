@@ -1,5 +1,5 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { ClientService } from '../../../core/services/client.service';
 import { NotificationService } from '../../../core/services/notification.service';
@@ -28,11 +28,20 @@ interface Contract {
 @Component({
   selector: 'app-client-list',
   templateUrl: './client-list.component.html',
-  styleUrls: ['./client-list.component.css']
+  styleUrls: ['./client-list.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class ClientListComponent implements OnInit {
   clients: Client[] = [];
   displayedColumns: string[] = ['id', 'name', 'cpfCnpj', 'phone', 'status', 'actions'];
+  contractColumns: string[] = ['contractNumber', 'contractDate', 'value', 'status'];
+  expandedElement: Client | null = null;
 
   constructor(
     private clientService: ClientService,
@@ -48,6 +57,24 @@ export class ClientListComponent implements OnInit {
     this.clientService.getClients().subscribe(
       data => this.clients = data,
       error => this.notificationService.showError('Failed to load clients')
+    );
+  }
+
+  addClient(): void {
+    this.router.navigate(['/clients/detail', 0]);
+  }
+
+  editClient(id: number): void {
+    this.router.navigate(['/clients/detail', id]);
+  }
+
+  deleteClient(id: number): void {
+    this.clientService.deleteClient(id).subscribe(
+      () => {
+        this.notificationService.showSuccess('Client deleted successfully');
+        this.loadClients();
+      },
+      error => this.notificationService.showError('Failed to delete client')
     );
   }
 
@@ -72,22 +99,8 @@ export class ClientListComponent implements OnInit {
         return 'pending';
     }
   }
-  
-  addClient(): void {
-    this.router.navigate(['/clients/detail', 0]);
-  }
 
-  editClient(id: number): void {
-    this.router.navigate(['/clients/detail', id]);
-  }
-
-  deleteClient(id: number): void {
-    this.clientService.deleteClient(id).subscribe(
-      () => {
-        this.notificationService.showSuccess('Client deleted successfully');
-        this.loadClients();
-      },
-      error => this.notificationService.showError('Failed to delete client')
-    );
+  toggleExpand(client: Client): void {
+    this.expandedElement = this.expandedElement === client ? null : client;
   }
 }

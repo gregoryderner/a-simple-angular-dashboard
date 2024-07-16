@@ -1,3 +1,19 @@
+.element-row {
+  cursor: pointer;
+}
+
+.element-row:hover {
+  background-color: #f5f5f5;
+}
+
+.detail-row {
+  background-color: #f9f9f9;
+}
+
+.mat-cell {
+  vertical-align: top;
+}
+
 .status-badge {
   display: inline-block;
   padding: 0.25em 0.4em;
@@ -62,4 +78,44 @@
 
 .legend-item.late::before {
   background-color: #fd7e14;
+}
+
+
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+/* https://stackblitz.com/angular/eaajjobynjkl?file=src%2Fapp%2Ftable-expandable-rows-example.css */
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.inner-table {
+  width: 100%;
+}
+
+.inner-table th, .inner-table td {
+  padding: 8px;
+}
+
+.mat-column-expandedDetail {
+  padding: 0 !important;
 }
