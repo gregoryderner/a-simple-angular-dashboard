@@ -1,13 +1,21 @@
 <mat-card>
-  <mat-card-title>Client Details</mat-card-title>
+  <mat-card-title>{{ clientId === 0 ? 'Adicionar Cliente' : 'Editar Cliente' }}</mat-card-title>
   <mat-card-content>
     <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
+        <mat-label>Nome</mat-label>
         <input matInput formControlName="name">
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Save</button>
-      <button mat-button (click)="cancel()">Cancel</button>
+      <mat-form-field appearance="fill">
+        <mat-label>CPF/CNPJ</mat-label>
+        <input matInput formControlName="cpfCnpj">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Telefone</mat-label>
+        <input matInput formControlName="phone">
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Salvar</button>
+      <button mat-button (click)="cancel()">Cancelar</button>
     </form>
   </mat-card-content>
 </mat-card>

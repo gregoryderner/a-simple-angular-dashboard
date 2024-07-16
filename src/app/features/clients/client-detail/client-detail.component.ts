@@ -21,7 +21,9 @@ export class ClientDetailComponent implements OnInit {
     private notificationService: NotificationService
   ) {
     this.clientForm = this.fb.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      cpfCnpj: ['', Validators.required],
+      phone: ['', Validators.required],
     });
     this.clientId = Number(this.route.snapshot.paramMap.get('id'));
   }
