@@ -40,7 +40,7 @@ interface Contract {
 export class ClientListComponent implements OnInit {
   clients: Client[] = [];
   displayedColumns: string[] = ['id', 'name', 'cpfCnpj', 'phone', 'status', 'actions'];
-  contractColumns: string[] = ['contractNumber', 'contractDate', 'value', 'status'];
+  contractColumns: string[] = ['contractNumber', 'contractDate', 'value', 'status', 'actions'];
   expandedElement: Client | null = null;
   filteredClients: Client[] = [];
   selectedStatus: string = '';
@@ -90,6 +90,19 @@ export class ClientListComponent implements OnInit {
         this.loadClients();
       },
       error => this.notificationService.showError('Failed to delete client')
+    );
+  }
+
+  cancelContract(contractId: number): void {
+    this.clientService.cancelContract(contractId).subscribe(
+      () => {
+        this.notificationService.showSuccess('Contract cancelled successfully');
+        this.loadClients();
+      },
+      error => {
+        const message = error?.error?.message || error.statusText
+        this.notificationService.showError(`Failed to cancel contract. ${error.message}`)
+      }
     );
   }
 
