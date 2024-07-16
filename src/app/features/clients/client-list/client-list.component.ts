@@ -1,8 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ClientService } from '../../../core/services/client.service';
 import { NotificationService } from '../../../core/services/notification.service';
+import { AddContractDialogComponent } from '../add-contract-dialog/add-contract-dialog.component';
 
 interface Client {
   id: number;
@@ -48,7 +50,8 @@ export class ClientListComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -104,6 +107,25 @@ export class ClientListComponent implements OnInit {
         this.notificationService.showError(`Failed to cancel contract. ${error.message}`)
       }
     );
+  }
+
+  openAddContractDialog(clientId: number): void {
+    const dialogRef = this.dialog.open(AddContractDialogComponent, {
+      width: '400px',
+      data: { clientId: clientId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.clientService.addContract(result).subscribe(
+          () => {
+            this.notificationService.showSuccess('Contract added successfully');
+            this.loadClients();
+          },
+          error => this.notificationService.showError('Failed to add contract')
+        );
+      }
+    });
   }
 
   getStatusCounts(contracts: Contract[]): { [key: string]: number } {

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ClientService {
   private apiUrl = 'http://localhost:3000/api/clients';
-  private apiContractsUrl = 'http://localhost:3000/api/contracts';
+  private apiContractsUrl = 'http://localhost:3000/api/contracts'; // URL para contratos
 
   constructor(private http: HttpClient) {}
 
@@ -24,7 +24,7 @@ export class ClientService {
   }
 
   updateClient(id: number, client: any): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/${id}`, client);
+    return this.http.put<any>(`${this.apiUrl}/${id}`, client);
   }
 
   deleteClient(id: number): Observable<any> {
@@ -32,6 +32,10 @@ export class ClientService {
   }
 
   cancelContract(contractId: number): Observable<any> {
-    return this.http.patch<any>(`${this.apiContractsUrl}/${contractId}/cancel`, {});
+    return this.http.put<any>(`${this.apiContractsUrl}/${contractId}/cancel`, {});
+  }
+
+  addContract(contract: any): Observable<any> {
+    return this.http.post<any>(this.apiContractsUrl, contract);
   }
 }

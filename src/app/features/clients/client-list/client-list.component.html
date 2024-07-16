@@ -59,6 +59,9 @@
           <button mat-icon-button (click)="toggleExpand(client)">
             <mat-icon>{{ expandedElement === client ? 'expand_less' : 'expand_more' }}</mat-icon>
           </button>
+          <button mat-icon-button (click)="openAddContractDialog(client.id)">
+            <mat-icon>add</mat-icon>
+          </button>
         </td>
       </ng-container>
 

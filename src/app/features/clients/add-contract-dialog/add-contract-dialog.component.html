@@ -1,0 +1,29 @@
+<mat-dialog-content>
+  <form [formGroup]="contractForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Número do Contrato</mat-label>
+      <input matInput formControlName="contractNumber">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Data do Contrato</mat-label>
+      <input matInput formControlName="contractDate" type="date">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Valor</mat-label>
+      <input matInput formControlName="value" type="number">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="PENDING">Em Atraso</mat-option>
+        <mat-option value="PAID">Pago</mat-option>
+        <mat-option value="CANCELLED">Cancelado</mat-option>
+        <mat-option value="LATE">Dentro do Prazo</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!contractForm.valid" (click)="onSave()">Salvar</button>
+</mat-dialog-actions>
