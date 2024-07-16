@@ -5,13 +5,18 @@
   height: 100vh;
 }
 
+mat-card {
+  padding: 20px;
+  width: 300px;
+}
+
 form {
   display: flex;
   flex-direction: column;
 }
 
-div {
-  margin-bottom: 10px;
+mat-form-field {
+  margin-bottom: 20px;
 }
 
 button {
