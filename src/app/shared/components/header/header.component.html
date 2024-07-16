@@ -1,7 +1,8 @@
 <mat-toolbar color="primary">
   <span>Dashboard</span>
   <span class="spacer"></span>
-  <button mat-icon-button aria-label="User profile">
-    <mat-icon>account_circle</mat-icon>
+  <span>{{ user.name }}</span>
+  <button mat-icon-button aria-label="User profile" (click)="logout()">
+    <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>

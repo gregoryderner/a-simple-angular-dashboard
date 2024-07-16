@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -8,6 +9,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/auth/login';
+  private tokenValidationUrl = 'http://localhost:3000/api/auth/validate-token';
 
   constructor(private http: HttpClient) {}
 
@@ -27,5 +29,24 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  getUser(): any {
+    return JSON.parse(localStorage.getItem('user') || '{}');
+  }
+
+  isTokenValid(): boolean {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+      return decodedToken.exp > currentTime;
+    } catch (error) {
+      return false;
+    }
   }
 }
