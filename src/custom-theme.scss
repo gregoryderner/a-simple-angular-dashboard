@@ -2,14 +2,27 @@
 
 // Define a custom color palette
 $app-primary: mat.define-palette(mat.$blue-palette, 700, 500, 900);
-$app-accent: mat.define-palette(mat.$azure-palette, A200, A100, A400);
+$app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
-// Define the dark theme
+// Custom colors for badges
+$pending-color: mat.define-palette(mat.$amber-palette, 500);
+$paid-color: mat.define-palette(mat.$green-palette, 500);
+$cancelled-color: mat.define-palette(mat.$red-palette, 500);
+$late-color: mat.define-palette(mat.$orange-palette, 500);
+
+// Define the light theme
 $app-theme: mat.define-light-theme((
   color: (
     primary: $app-primary,
     accent: $app-accent,
+    warn: $cancelled-color,
   ),
+  background: (
+    status-pending: $pending-color,
+    status-paid: $paid-color,
+    status-cancelled: $cancelled-color,
+    status-late: $late-color,
+  )
 ));
 
 @include mat.all-component-themes($app-theme);

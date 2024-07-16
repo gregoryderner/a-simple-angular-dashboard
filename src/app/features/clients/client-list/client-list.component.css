@@ -1,0 +1,65 @@
+.status-badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  margin-right: 5px;
+}
+
+.status-badge.pending {
+  background-color: #ffc107; /* Amber */
+}
+
+.status-badge.paid {
+  background-color: #28a745; /* Green */
+}
+
+.status-badge.cancelled {
+  background-color: #dc3545; /* Red */
+}
+
+.status-badge.late {
+  background-color: #fd7e14; /* Orange */
+}
+
+.legend {
+  display: flex;
+  margin-top: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.legend-item::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.legend-item.pending::before {
+  background-color: #ffc107;
+}
+
+.legend-item.paid::before {
+  background-color: #28a745;
+}
+
+.legend-item.cancelled::before {
+  background-color: #dc3545;
+}
+
+.legend-item.late::before {
+  background-color: #fd7e14;
+}
