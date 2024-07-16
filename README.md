@@ -1,27 +1,85 @@
-# Dashboard
+# Dashboard de Gestão de Clientes e Usuários
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+Este projeto é uma aplicação de dashboard desenvolvida em Angular 17 e TypeScript, utilizando os princípios de SOLID, clean code e clean architecture. A aplicação permite o gerenciamento de clientes e contratos, com funcionalidades de autenticação, listagem, adição, edição e remoção.
 
-## Development server
+Esse projeto depende do backend: `git@github.com:gregoryderner/a-simple-solid-nodejs-api.git`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Estrutura do Projeto
 
-## Code scaffolding
+A estrutura do projeto está organizada da seguinte forma:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```plain
+src/
+├── app/
+│ ├── core/
+│ │ ├── authentication/
+│ │ ├── guards/
+│ │ ├── interceptors/
+│ │ ├── services/
+│ │ └── core.module.ts
+│ ├── shared/
+│ │ ├── components/
+│ │ ├── directives/
+│ │ ├── pipes/
+│ │ └── shared.module.ts
+│ ├── features/
+│ │ ├── login/
+│ │ ├── clients/
+│ │ ├── users/
+│ │ └── features.module.ts
+│ ├── app-routing.module.ts
+│ ├── app.component.html
+│ ├── app.component.ts
+│ └── app.module.ts
+```
 
-## Build
+## Funcionalidades
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Autenticação
 
-## Running unit tests
+- **Login:** Autenticação dos usuários para acessar o dashboard.
+- **Guards:** Protege rotas que só podem ser acessadas por usuários autenticados.
+- **Interceptor:** Adiciona o token de autenticação nas requisições HTTP.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Gestão de Clientes
 
-## Running end-to-end tests
+- **Listagem de Clientes:** Exibe uma lista de clientes com a possibilidade de aplicar filtros por status (Em Atraso, Pago, Cancelado, Dentro do Prazo).
+- **Adicionar Cliente:** Formulário para adicionar um novo cliente.
+- **Editar Cliente:** Formulário para editar um cliente existente.
+- **Remover Cliente:** Função para remover um cliente.
+- **Cancelar Contrato:** Permite cancelar contratos diretamente na listagem de clientes.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Gestão de Usuários
 
-## Further help
+- **Listagem de Usuários:** Exibe uma lista de usuários com as funcionalidades de adicionar, editar e remover usuários (Em desenvolvimento).
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Layout
+
+- **Sidebar:** Barra lateral para navegação entre as telas do dashboard.
+- **Header:** Barra superior com informações do usuário logado e opção de logout.
+- **Conteúdo Central:** Área principal onde o conteúdo das diferentes telas é exibido.
+
+## Instalação e Configuração
+
+### Pré-requisitos
+
+- Node.js (versão 14 ou superior)
+- Angular CLI
+
+### Passos para Instalação
+
+1. Clone o repositório
+2. Navegue até o diretório do projeto
+3. Instale as dependências
+4. Execute a aplicação
+   1. ng serve
+
+A aplicação estará disponível em `http://localhost:4200`.
+
+### Configuração da API
+
+A aplicação consome uma API para autenticação, gerenciamento de clientes e usuários. Certifique-se de que a API esteja em execução e configurada para as seguintes rotas:
+
+- `http://localhost:3000/api/auth/login`
+- `http://localhost:3000/api/users`
+- `http://localhost:3000/api/clients`
